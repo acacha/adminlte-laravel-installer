@@ -1,0 +1,24 @@
+{
+    "name": "acacha/adminlte-laravel-installer",
+    "description": "Adminlte-laravel application installer.",
+    "keywords": ["laravel","adminlte","pratt","bootstrap","theme","admin"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergi Tur Badenas",
+            "email": "sergiturbadenas@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Acacha\\AdminLTETemplateLaravel\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/console": "~2.3|~3.0",
+        "symfony/process": "~2.3|~3.0"
+    },
+    "bin": [
+        "adminlte-laravel"
+    ]
+}
