@@ -30,7 +30,7 @@ class InstallCommand extends Command
     {
         $composer = $this->findComposer();
 
-        $process = new Process($composer.' require acacha/admin-lte-template-laravel', null, null, null, null);
+        $process = new Process($composer.' require acacha/admin-lte-template-laravel:dev-master', null, null, null, null);
 
         $process->run(function ($type, $line) use ($output) {
             $output->write($line);
