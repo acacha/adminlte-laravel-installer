@@ -198,7 +198,7 @@ return [
         /*
          * Acacha AdminLTE template alias
          */
-        'acacha/AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
+        'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
 
     ],
 
