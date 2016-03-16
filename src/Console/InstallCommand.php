@@ -81,11 +81,12 @@ class InstallCommand extends Command
 
         $process = new Process($composer.' require acacha/admin-lte-template-laravel', null, null, null, null);
 
+        $output->writeln('<info>Running composer require acacha/admin-lte-template-laravel</info>');
         $process->run(function ($type, $line) use ($output) {
-            $output->write('<info>' . $line . '</info>');
+            $output->write($line);
         });
 
-        $output->writeln('<info>Copying file ' . __DIR__. '/stubs/app.php' . ' into ' . getcwd().'/config/app.php');
+        $output->writeln('<info>Copying file ' . __DIR__. '/stubs/app.php' . ' into ' . getcwd().'/config/app.php</info>');
         copy(__DIR__.'/stubs/app.php', getcwd().'/config/app.php');
 
         $output->writeln('<info>php artisan vendor:publish --tag=adminlte --force</info>');
