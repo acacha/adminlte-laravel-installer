@@ -65,7 +65,7 @@ class InstallCommand extends Command
         if ($this->isNoLlumActive()) {
             $this->executeWithoutLlum($output);
         } else {
-            passthru(__DIR__ . "/../../vendor/acacha/llum/llum package AdminLTE");
+            passthru("llum package AdminLTE");
         }
     }
 
