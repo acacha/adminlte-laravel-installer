@@ -65,6 +65,7 @@ class InstallCommand extends Command
         if ($this->isNoLlumActive()) {
             $this->executeWithoutLlum($output);
         } else {
+            $output->writeln('<info>Running llum package AdminLTE...</info>');
             passthru("llum package AdminLTE");
         }
     }
@@ -81,11 +82,13 @@ class InstallCommand extends Command
         $process = new Process($composer.' require acacha/admin-lte-template-laravel', null, null, null, null);
 
         $process->run(function ($type, $line) use ($output) {
-            $output->write($line);
+            $output->write('<info>' . $line . '</info>');
         });
 
+        $output->writeln('<info>Copying file ' . __DIR__. '/stubs/app.php' . ' into ' . getcwd().'/config/app.php');
         copy(__DIR__.'/stubs/app.php', getcwd().'/config/app.php');
 
+        $output->writeln('<info>php artisan vendor:publish --tag=adminlte --force</info>');
         passthru('php artisan vendor:publish --tag=adminlte --force');
     }
 
