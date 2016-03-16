@@ -2,14 +2,47 @@
 
 namespace Acacha\AdminLTETemplateLaravel\Console;
 
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class InstallCommand
+ * @package Acacha\AdminLTETemplateLaravel\Console
+ */
 class InstallCommand extends Command
 {
+
+    /**
+     * Avoids using llum to install package.
+     *
+     * @var bool
+     */
+    protected $noLlum = false;
+
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        parent::initialize($input, $output);
+        if ($input->hasOption('no-llum')) {
+            $this->noLlum = $input->getOption('no-llum');
+        }
+    }
+
+    /**
+     * Check is --no-llum option is active.
+     *
+     * @return bool
+     */
+    private function isNoLlumActive()
+    {
+        return $this->noLlum;
+    }
+
     /**
      * Configure the command options.
      */
@@ -29,20 +62,31 @@ class InstallCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        var_dump(__DIR__ . "/../../vendor/acacha/llum/llum package AdminLTE");
+        if ($this->isNoLlumActive()) {
+            $this->executeWithoutLlum($output);
+        } else {
+            passthru(__DIR__ . "/../../vendor/acacha/llum/llum package AdminLTE");
+        }
+    }
 
+    /**
+     * Execute command wiht option --no-llum
+     *
+     * @param OutputInterface $output
+     */
+    protected function executeWithoutLlum(OutputInterface $output)
+    {
+        $composer = $this->findComposer();
 
-//        $composer = $this->findComposer();
-//
-//        $process = new Process($composer.' require acacha/admin-lte-template-laravel', null, null, null, null);
-//
-//        $process->run(function ($type, $line) use ($output) {
-//            $output->write($line);
-//        });
-//
-//        copy(__DIR__.'/stubs/app.php', getcwd().'/config/app.php');
-//
-//        passthru('php artisan vendor:publish --tag=adminlte --force');
+        $process = new Process($composer.' require acacha/admin-lte-template-laravel', null, null, null, null);
+
+        $process->run(function ($type, $line) use ($output) {
+            $output->write($line);
+        });
+
+        copy(__DIR__.'/stubs/app.php', getcwd().'/config/app.php');
+
+        passthru('php artisan vendor:publish --tag=adminlte --force');
     }
 
     /**

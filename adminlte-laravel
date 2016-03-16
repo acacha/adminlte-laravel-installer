@@ -1,13 +1,22 @@
 #!/usr/bin/env php
 <?php
 
+use Symfony\Component\Console\Input\InputOption;
+
 if (file_exists(__DIR__.'/../../autoload.php')) {
     require __DIR__.'/../../autoload.php';
 } else {
     require __DIR__.'/vendor/autoload.php';
 }
 
-$app = new Symfony\Component\Console\Application('Acacha AdminLTE Installer', '0.1');
+$app = new Symfony\Component\Console\Application('Acacha AdminLTE Installer', '1.0');
+
+// Add global Options to the Application
+$app->getDefinition()->addOptions([
+    new InputOption('--no-llum', '-L', InputOption::VALUE_NONE,
+        'Does not use acacha/llum to install package. Llum does not use stubs to modify config/app.php file so your changes are respected. However llum use bash scripts that can be no compatible in all platforms'),
+]);
+
 $app->add(new Acacha\AdminLTETemplateLaravel\Console\InstallCommand);
 
 $app->run();
