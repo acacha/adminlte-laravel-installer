@@ -16,7 +16,8 @@
     },
     "require": {
         "symfony/console": "~2.3|~3.0",
-        "symfony/process": "~2.3|~3.0"
+        "symfony/process": "~2.3|~3.0",
+        "acacha/llum": "~0.6"
     },
     "bin": [
         "adminlte-laravel"

@@ -2,6 +2,7 @@
 
 namespace Acacha\AdminLTETemplateLaravel\Console;
 
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,17 +29,20 @@ class InstallCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $composer = $this->findComposer();
+        var_dump(__DIR__ . "/../../vendor/acacha/llum/llum package AdminLTE");
 
-        $process = new Process($composer.' require acacha/admin-lte-template-laravel', null, null, null, null);
 
-        $process->run(function ($type, $line) use ($output) {
-            $output->write($line);
-        });
-
-        copy(__DIR__.'/stubs/app.php', getcwd().'/config/app.php');
-
-        passthru('php artisan vendor:publish --tag=adminlte --force');
+//        $composer = $this->findComposer();
+//
+//        $process = new Process($composer.' require acacha/admin-lte-template-laravel', null, null, null, null);
+//
+//        $process->run(function ($type, $line) use ($output) {
+//            $output->write($line);
+//        });
+//
+//        copy(__DIR__.'/stubs/app.php', getcwd().'/config/app.php');
+//
+//        passthru('php artisan vendor:publish --tag=adminlte --force');
     }
 
     /**
