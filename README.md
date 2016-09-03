@@ -9,7 +9,7 @@ This packages requires [acacha/llum](https://github.com/acacha/llum) package sta
 # Install notes
 
 ```bash
-composer global require "acacha/adminlte-laravel-installer=~2.0"
+composer global require "acacha/adminlte-laravel-installer=~3.0"
 ```
 
 # Installer without llum
