@@ -94,7 +94,8 @@ class InstallCommand extends Command
         $process = new Process($composer.' require acacha/admin-lte-template-laravel' . $this->getDevOption(),
                                null, null, null, null);
 
-        $output->writeln('<info>Running composer require acacha/admin-lte-template-laravel</info>');
+        $output->writeln(
+            '<info>Running composer require acacha/admin-lte-template-laravel' . $this->getDevOption() . '</info>');
         $process->run(function ($type, $line) use ($output) {
             $output->write($line);
         });
