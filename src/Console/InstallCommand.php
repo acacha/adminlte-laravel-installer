@@ -22,6 +22,15 @@ class InstallCommand extends Command
     protected $noLlum = false;
 
     /**
+     * Install development version
+     *
+     * @var bool
+     */
+    protected $installDev = false;
+
+    /**
+     * Initialize command
+     *
      * @param InputInterface  $input
      * @param OutputInterface $output
      */
@@ -30,6 +39,9 @@ class InstallCommand extends Command
         parent::initialize($input, $output);
         if ($input->hasOption('no-llum')) {
             $this->noLlum = $input->getOption('no-llum');
+        }
+        if ($input->hasOption('dev')) {
+            $this->installDev = $input->getOption('dev');
         }
     }
 
@@ -66,7 +78,7 @@ class InstallCommand extends Command
             $this->executeWithoutLlum($output);
         } else {
             $output->writeln('<info>Running llum package AdminLTE...</info>');
-            passthru("llum package AdminLTE");
+            passthru("llum package " . $this->getDevOption() . " AdminLTE");
         }
     }
 
@@ -79,7 +91,8 @@ class InstallCommand extends Command
     {
         $composer = $this->findComposer();
 
-        $process = new Process($composer.' require acacha/admin-lte-template-laravel', null, null, null, null);
+        $process = new Process($composer.' require acacha/admin-lte-template-laravel' . $this->getDevOption(),
+                               null, null, null, null);
 
         $output->writeln('<info>Running composer require acacha/admin-lte-template-laravel</info>');
         $process->run(function ($type, $line) use ($output) {
@@ -105,5 +118,15 @@ class InstallCommand extends Command
         }
 
         return 'composer';
+    }
+
+    /*
+     * gets dev option
+     *
+     * @return string
+     */
+    private function getDevOption()
+    {
+        return $this->installDev ? ":dev-master"  : "";
     }
 }

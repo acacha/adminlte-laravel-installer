@@ -3,6 +3,8 @@
     "description": "Adminlte-laravel application installer.",
     "keywords": ["laravel","adminlte","pratt","bootstrap","theme","admin"],
     "license": "MIT",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Sergi Tur Badenas",
