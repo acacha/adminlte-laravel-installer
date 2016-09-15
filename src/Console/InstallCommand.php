@@ -29,6 +29,14 @@ class InstallCommand extends Command
     protected $installDev = false;
 
     /**
+     * Install using php artisan publish
+     *
+     * @var bool
+     */
+    protected $usePublish = false;
+
+
+    /**
      * Initialize command
      *
      * @param InputInterface  $input
@@ -42,6 +50,9 @@ class InstallCommand extends Command
         }
         if ($input->hasOption('dev')) {
             $this->installDev = $input->getOption('dev');
+        }
+        if ($input->hasOption('use-publish')) {
+            $this->usePublish = $input->getOption('use-publish');
         }
     }
 
@@ -78,7 +89,8 @@ class InstallCommand extends Command
             $this->executeWithoutLlum($output);
         } else {
             $output->writeln('<info>Running llum package AdminLTE...</info>');
-            passthru("llum package " . $this->getDevOption() . " AdminLTE");
+            $llum = $this->findLlum();
+            passthru($llum." package " . $this->getDevOption() . " AdminLTE");
         }
     }
 
@@ -103,8 +115,7 @@ class InstallCommand extends Command
         $output->writeln('<info>Copying file ' . __DIR__. '/stubs/app.php' . ' into ' . getcwd().'/config/app.php</info>');
         copy(__DIR__.'/stubs/app.php', getcwd().'/config/app.php');
 
-        $output->writeln('<info>php artisan vendor:publish --tag=adminlte --force</info>');
-        passthru('php artisan vendor:publish --tag=adminlte --force');
+        $this->usePublish ? $this->publishWithArtisan($output) : $this->publish($output) ;
     }
 
     /**
@@ -121,6 +132,23 @@ class InstallCommand extends Command
         return 'composer';
     }
 
+    /**
+     * Get the llum command for the environment.
+     *
+     * @return string
+     */
+    private function findLlum()
+    {
+        if (is_executable('~/.config/composer/vendor/bin/llum')) {
+            return '~/.config/composer/vendor/bin/llum';
+        }
+        if (is_executable('~/.composer/vendor/bin/llum')) {
+            return '~/.composer/vendor/bin/llum';
+        }
+
+        return 'llum';
+    }
+
     /*
      * gets dev option
      *
@@ -129,5 +157,28 @@ class InstallCommand extends Command
     private function getDevOption()
     {
         return $this->installDev ? ":dev-master"  : "";
+    }
+
+    /**
+     * Manually publishes files to project
+     *
+     * @param OutputInterface $output
+     */
+    protected function publish(OutputInterface $output)
+    {
+        $output->writeln('<info>php artisan adminlte:publish</info>');
+        passthru('php artisan adminlte-laravel:publish');
+
+    }
+
+    /**
+     * Publishes files with artisan publish command
+     *
+     * @param OutputInterface $output
+     */
+    protected function publishWithArtisan(OutputInterface $output)
+    {
+        $output->writeln('<info>php artisan vendor:publish --tag=adminlte --force</info>');
+        passthru('php artisan vendor:publish --tag=adminlte --force');
     }
 }

@@ -16,7 +16,9 @@ $app->getDefinition()->addOptions([
     new InputOption('--no-llum', '-L', InputOption::VALUE_NONE,
         'Does not use acacha/llum to install package. Llum does not use stubs to modify config/app.php file so your changes are respected. However llum use bash scripts that can be no compatible in all platforms'),
     new InputOption('--dev', '-d', InputOption::VALUE_NONE,
-        'Installs the latest "development" release')
+        'Installs the latest "development" release'),
+    new InputOption('--use-publish', '-p', InputOption::VALUE_NONE,
+        'Installs using php artisan vendor:publish --tag=adminlte --force')
 ]);
 
 $app->add(new Acacha\AdminLTETemplateLaravel\Console\InstallCommand);
