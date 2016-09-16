@@ -74,7 +74,7 @@ class InstallCommand extends Command
         $this->ignoreValidationErrors();
 
         $this->setName('install')
-                ->setDescription('Install Acacha AdminLTE package into the current project.');
+            ->setDescription('Install Acacha AdminLTE package into the current project.');
     }
 
     /**
@@ -104,7 +104,7 @@ class InstallCommand extends Command
         $composer = $this->findComposer();
 
         $process = new Process($composer.' require acacha/admin-lte-template-laravel' . $this->getDevOption(),
-                               null, null, null, null);
+            null, null, null, null);
 
         $output->writeln(
             '<info>Running composer require acacha/admin-lte-template-laravel' . $this->getDevOption() . '</info>');
@@ -139,18 +139,48 @@ class InstallCommand extends Command
      */
     private function findLlum()
     {
-        if (is_executable('~/.config/composer/vendor/bin/llum')) {
-            return '~/.config/composer/vendor/bin/llum';
+        $HOME = $this->getUserHomePath();
+        if (is_executable($this->getRealPath("$HOME/.composer/vendor/bin/llum"))) {
+            return "$HOME/.composer/vendor/bin/llum";
         }
-        if (is_executable('~/.composer/vendor/bin/llum')) {
-            return '~/.composer/vendor/bin/llum';
+        if (is_executable($this->getRealPath("$HOME/.config/composer/vendor/bin/llum"))) {
+            return "$HOME/.config/composer/vendor/bin/llum";
         }
-
         return 'llum';
     }
 
+
+    /**
+     * Get the real path of a link or regular path if file is not a link
+     *
+     * @param $file
+     * @return string
+     */
+    private function getRealPath($file) {
+        if (is_link($file)) {
+            return realpath($file);
+        }
+        return $file;
+    }
+
+    /**
+     * @return string
+     */
+    function getUserHomePath()
+    {
+        if (isset($_SERVER['HOME'])) {
+            return $_SERVER['HOME'];
+        }
+
+        if (PHP_OS == 'WINNT') {
+            return getenv('USERPROFILE');
+        } else {
+            return getenv('HOME');
+        }
+    }
+
     /*
-     * gets dev option
+     * Gets dev option
      *
      * @return string
      */
