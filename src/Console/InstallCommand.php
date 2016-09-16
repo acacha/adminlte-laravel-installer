@@ -29,11 +29,11 @@ class InstallCommand extends Command
     protected $installDev = false;
 
     /**
-     * Install using php artisan publish
+     * Install using php artisan vendor:publish
      *
      * @var bool
      */
-    protected $usePublish = false;
+    protected $useVendorPublish = false;
 
 
     /**
@@ -51,8 +51,8 @@ class InstallCommand extends Command
         if ($input->hasOption('dev')) {
             $this->installDev = $input->getOption('dev');
         }
-        if ($input->hasOption('use-publish')) {
-            $this->usePublish = $input->getOption('use-publish');
+        if ($input->hasOption('use-vendor-publish')) {
+            $this->useVendorPublish = $input->getOption('use-vendor-publish');
         }
     }
 
@@ -90,7 +90,8 @@ class InstallCommand extends Command
         } else {
             $llum = $this->findLlum();
             $output->writeln("<info>" . $llum." package " . $this->getDevOption() . " AdminLTE" ."</info>");
-            passthru($llum." package " . $this->getDevOption() . " AdminLTE");
+            $this->useVendorPublish ? $package = 'AdminLTEVendorPublish' : $package = 'AdminLTE';
+            passthru($llum." package " . $this->getDevOption() . $package);
         }
     }
 
@@ -115,7 +116,7 @@ class InstallCommand extends Command
         $output->writeln('<info>Copying file ' . __DIR__. '/stubs/app.php' . ' into ' . getcwd().'/config/app.php</info>');
         copy(__DIR__.'/stubs/app.php', getcwd().'/config/app.php');
 
-        $this->usePublish ? $this->publishWithArtisan($output) : $this->publish($output) ;
+        $this->useVendorPublish ? $this->publishWithVendor($output) : $this->publish($output) ;
     }
 
     /**
@@ -216,7 +217,7 @@ class InstallCommand extends Command
      *
      * @param OutputInterface $output
      */
-    protected function publishWithArtisan(OutputInterface $output)
+    protected function publishWithVendor(OutputInterface $output)
     {
         $output->writeln('<info>php artisan vendor:publish --tag=adminlte --force</info>');
         passthru('php artisan vendor:publish --tag=adminlte --force');
