@@ -88,8 +88,8 @@ class InstallCommand extends Command
         if ($this->isNoLlumActive()) {
             $this->executeWithoutLlum($output);
         } else {
-            $output->writeln('<info>Running llum package AdminLTE...</info>');
             $llum = $this->findLlum();
+            $output->writeln("<info>" . $llum." package " . $this->getDevOption() . " AdminLTE" ."</info>");
             passthru($llum." package " . $this->getDevOption() . " AdminLTE");
         }
     }
