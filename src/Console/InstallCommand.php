@@ -103,11 +103,11 @@ class InstallCommand extends Command
     {
         $composer = $this->findComposer();
 
-        $process = new Process($composer.' require acacha/admin-lte-template-laravel' . $this->getDevOption(),
+        $process = new Process($composer.' require acacha/admin-lte-template-laravel' . $this->getDevSuffix(),
             null, null, null, null);
 
         $output->writeln(
-            '<info>Running composer require acacha/admin-lte-template-laravel' . $this->getDevOption() . '</info>');
+            '<info>Running composer require acacha/admin-lte-template-laravel' . $this->getDevSuffix() . '</info>');
         $process->run(function ($type, $line) use ($output) {
             $output->write($line);
         });
@@ -185,6 +185,16 @@ class InstallCommand extends Command
      * @return string
      */
     private function getDevOption()
+    {
+        return $this->installDev ? "--dev"  : "";
+    }
+
+    /*
+     * Gets dev suffix
+     *
+     * @return string
+     */
+    private function getDevSuffix()
     {
         return $this->installDev ? ":dev-master"  : "";
     }
