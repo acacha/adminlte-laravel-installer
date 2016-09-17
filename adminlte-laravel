@@ -18,8 +18,9 @@ $app->getDefinition()->addOptions([
     new InputOption('--dev', '-d', InputOption::VALUE_NONE,
         'Installs the latest "development" release'),
     new InputOption('--use-vendor-publish', '-p', InputOption::VALUE_NONE,
-        'Installs using php artisan vendor:publish --tag=adminlte --force . By default php artisan adminlte-laravel:publish is used')
-]);
+        'Installs using php artisan vendor:publish --tag=adminlte --force . By default php artisan adminlte-laravel:publish is used'),
+    new InputOption('--dontforce', '-F', InputOption::VALUE_NONE,
+        'Ask before overwrite files during installation')]);
 
 $app->add(new Acacha\AdminLTETemplateLaravel\Console\InstallCommand);
 

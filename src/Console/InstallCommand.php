@@ -34,6 +34,13 @@ class InstallCommand extends Command
     protected $useVendorPublish = false;
 
     /**
+     * Install asking before overwrite files.
+     *
+     * @var bool
+     */
+    protected $askBeforeOverwrite = false;
+
+    /**
      * Initialize command.
      *
      * @param InputInterface  $input
@@ -50,6 +57,9 @@ class InstallCommand extends Command
         }
         if ($input->hasOption('use-vendor-publish')) {
             $this->useVendorPublish = $input->getOption('use-vendor-publish');
+        }
+        if ($input->hasOption('dontforce')) {
+            $this->askBeforeOverwrite = $input->getOption('dontforce');
         }
     }
 
@@ -86,10 +96,20 @@ class InstallCommand extends Command
             $this->executeWithoutLlum($output);
         } else {
             $llum = $this->findLlum();
-            $output->writeln('<info>'.$llum.' package '.$this->getDevOption().' AdminLTE'.'</info>');
-            $this->useVendorPublish ? $package = 'AdminLTEVendorPublish' : $package = 'AdminLTE';
-            passthru($llum.' package '.$this->getDevOption().$package);
+            $package = $this->getPackageName();
+            $output->writeln('<info>'.$llum.' package '.$this->getDevOption()." $package".'</info>');
+            passthru($llum.' package '.$this->getDevOption(). ' ' . $package);
         }
+    }
+
+    /**
+     * Get llum package name
+     */
+    private function getPackageName() {
+        if (! $this->askBeforeOverwrite) {
+            return $this->useVendorPublish ? $package = 'AdminLTEVendorPublish' : $package = 'AdminLTE';
+        }
+        return $this->useVendorPublish ? $package = 'AdminLTEVendorPublishDontForce' : $package = 'AdminLTEDontForce';
     }
 
     /**
@@ -185,6 +205,9 @@ class InstallCommand extends Command
      *
      * @return string
      */
+    /**
+     * @return string
+     */
     private function getDevOption()
     {
         return $this->installDev ? '--dev' : '';
@@ -193,6 +216,9 @@ class InstallCommand extends Command
     /*
      * Gets dev suffix
      *
+     * @return string
+     */
+    /**
      * @return string
      */
     private function getDevSuffix()

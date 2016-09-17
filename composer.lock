@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "190d0a2bd6bb234ac26c426a9f241ed4",
+    "hash": "0363a5a8751f2bb5044763e6025479c2",
     "content-hash": "b082054eed1e88b5f0863c876d325bc8",
     "packages": [
         {
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/acacha/adminlte-laravel.git",
-                "reference": "766b8027780f653d178d2116f760efd422922758"
+                "reference": "3af6c67b5889d10fd8c91152c3b8d87123b45914"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/acacha/adminlte-laravel/zipball/766b8027780f653d178d2116f760efd422922758",
-                "reference": "766b8027780f653d178d2116f760efd422922758",
+                "url": "https://api.github.com/repos/acacha/adminlte-laravel/zipball/3af6c67b5889d10fd8c91152c3b8d87123b45914",
+                "reference": "3af6c67b5889d10fd8c91152c3b8d87123b45914",
                 "shasum": ""
             },
             "require": {
@@ -60,7 +60,7 @@
                 "template",
                 "theme"
             ],
-            "time": "2016-09-16 11:41:37"
+            "time": "2016-09-17 12:43:57"
         },
         {
             "name": "acacha/llum",
