@@ -3,7 +3,7 @@ if ! type "laravel" > /dev/null; then
     composer global require "laravel/installer"
 fi
 if ! type "adminlte-laravel" > /dev/null; then
-    composer global require "acacha/adminlte-laravel-installer=dev-master"
+    composer global require "acacha/adminlte-laravel-installer=~3.0"
 fi
 if ! type "llum" > /dev/null; then
     composer global require "acacha/llum=~1.0"
