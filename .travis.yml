@@ -8,6 +8,11 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
+  - ./sandbox_setup.sh
+
+after_script:
+  - ./sandbox_destroy.sh
 
 script:
-  - phpunit
+  - cd sandbox
+  - phpunit ../tests/InstallCommandTest.php
