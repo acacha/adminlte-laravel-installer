@@ -11,7 +11,6 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class InstallCommandTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * Test execution.
      */
@@ -24,11 +23,11 @@ class InstallCommandTest extends \PHPUnit_Framework_TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName().
-            '--force'
+            '--force',
         ]);
 
         $this->assertTrue(
-            $this->fileHasContent('/composer.json','acacha/admin-lte-template-laravel'));
+            $this->fileHasContent('/composer.json', 'acacha/admin-lte-template-laravel'));
 
         $this->assertTrue(
             $this->fileHasContent(
@@ -76,7 +75,7 @@ class InstallCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(
             $this->fileHasContent(
                 '/phpunit.xml',
-                "sqlite"
+                'sqlite'
             ));
         $this->assertFileExists('resources/lang/vendor/adminlte_lang');
         $this->assertFileExists('config/gravatar.php');
@@ -87,6 +86,7 @@ class InstallCommandTest extends \PHPUnit_Framework_TestCase
      *
      * @param $file
      * @param $content
+     *
      * @return bool
      */
     private function fileHasContent($file, $content)
