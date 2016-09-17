@@ -98,17 +98,19 @@ class InstallCommand extends Command
             $llum = $this->findLlum();
             $package = $this->getPackageName();
             $output->writeln('<info>'.$llum.' package '.$this->getDevOption()." $package".'</info>');
-            passthru($llum.' package '.$this->getDevOption(). ' ' . $package);
+            passthru($llum.' package '.$this->getDevOption().' '.$package);
         }
     }
 
     /**
-     * Get llum package name
+     * Get llum package name.
      */
-    private function getPackageName() {
-        if (! $this->askBeforeOverwrite) {
+    private function getPackageName()
+    {
+        if (!$this->askBeforeOverwrite) {
             return $this->useVendorPublish ? $package = 'AdminLTEVendorPublish' : $package = 'AdminLTE';
         }
+
         return $this->useVendorPublish ? $package = 'AdminLTEVendorPublishDontForce' : $package = 'AdminLTEDontForce';
     }
 
@@ -205,6 +207,7 @@ class InstallCommand extends Command
      *
      * @return string
      */
+
     /**
      * @return string
      */
@@ -218,6 +221,7 @@ class InstallCommand extends Command
      *
      * @return string
      */
+
     /**
      * @return string
      */

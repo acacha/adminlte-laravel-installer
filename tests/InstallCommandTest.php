@@ -22,7 +22,7 @@ class InstallCommandTest extends \PHPUnit_Framework_TestCase
         $command = $application->find('install');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
-            'command' => $command->getName()
+            'command' => $command->getName(),
         ]);
 
         $this->assertTrue(
