@@ -18,6 +18,14 @@ This packages requires [acacha/llum](https://github.com/acacha/llum) package sta
 composer global require "acacha/adminlte-laravel-installer=~3.0"
 ```
 
+# Use
+
+```bash
+admilte-laravel install
+```
+
+For more info see https://github.com/acacha/adminlte-laravel
+
 # Installer without llum
 
 Use:
@@ -32,11 +40,27 @@ Or use option --no-llum using installer:
 admilte-laravel --no--llum install
 ```
 
-# Use
+#Avoid force overwrite during installation
+
+Use:
 
 ```bash
-admilte-laravel install
+admilte-laravel -F install
 ```
 
-For more info see https://github.com/acacha/adminlte-laravel
+or:
+
+```bash
+admilte-laravel --dontforce install
+```
+
+# vendor:publish vs custom publish
+
+The installer use a custom artisan command (admilte-laravel:publish) to publish files. You can use old behaviour forcing use of laravel vendor:publish (this command will not be supported in future)
+
+```bash
+admilte-laravel --use-vendor-publish install
+```
+
+
 
