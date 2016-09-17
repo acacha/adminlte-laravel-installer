@@ -15,4 +15,4 @@ after_script:
 
 script:
   - cd sandbox
-  - phpunit ../tests/InstallCommandTest.php
+  - phpunit --configuration ../phpunit.xml ../tests/InstallCommandTest.php
