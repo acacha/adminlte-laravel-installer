@@ -1,6 +1,6 @@
 <?php
 
-namespace Acacha\AdminLTETemplateLaravel;
+namespace Acacha\AdminLTETemplateLaravel\Tests;
 
 use Acacha\AdminLTETemplateLaravel\Console\InstallCommand;
 use Symfony\Component\Console\Application;
