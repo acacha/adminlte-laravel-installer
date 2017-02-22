@@ -11,7 +11,6 @@ use Symfony\Component\Process\Process;
  */
 class InstallCommand extends BaseCommand
 {
-
     /**
      * Avoids using llum to install package.
      *
@@ -80,8 +79,9 @@ class InstallCommand extends BaseCommand
     /**
      * Execute the command.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)

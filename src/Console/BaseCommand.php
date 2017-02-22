@@ -7,8 +7,6 @@ use Symfony\Component\Console\Command\Command;
 
 /**
  * Class BaseCommand.
- *
- * @package Acacha\AdminLTETemplateLaravel\Console
  */
 class BaseCommand extends Command
 {
