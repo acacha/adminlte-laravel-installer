@@ -51,4 +51,12 @@ class SocialCommand extends BaseCommand
         $output->writeln('<info>'.$llum.' package '.$this->getDevOption()." $package".'</info>');
         passthru($llum.' package '.$this->getDevOption().' '.$package);
     }
+
+    /**
+     * Get llum package name.
+     */
+    protected function getPackageName()
+    {
+        return 'laravel-social';
+    }
 }

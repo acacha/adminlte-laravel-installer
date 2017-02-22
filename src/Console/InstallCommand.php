@@ -97,6 +97,18 @@ class InstallCommand extends BaseCommand
     }
 
     /**
+     * Get llum package name.
+     */
+    private function getPackageName()
+    {
+        if (!$this->askBeforeOverwrite) {
+            return $this->useVendorPublish ? $package = 'AdminLTEVendorPublish' : $package = 'AdminLTE';
+        }
+
+        return $this->useVendorPublish ? $package = 'AdminLTEVendorPublishDontForce' : $package = 'AdminLTEDontForce';
+    }
+
+    /**
      * Execute command with option --no-llum.
      *
      * @param OutputInterface $output

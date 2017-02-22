@@ -20,14 +20,6 @@ class BaseCommand extends Command
     protected $installDev = false;
 
     /**
-     * Get llum package name.
-     */
-    protected function getPackageName()
-    {
-        return 'laravel-social';
-    }
-
-    /**
      * Get the llum command for the environment.
      *
      * @return string
