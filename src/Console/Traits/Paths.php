@@ -4,8 +4,6 @@ namespace Acacha\AdminLTETemplateLaravel\Console\Traits;
 
 /**
  * Class Paths.
- *
- * @package Acacha\AdminLTETemplateLaravel\Console\Traits
  */
 trait Paths
 {

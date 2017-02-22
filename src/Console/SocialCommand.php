@@ -39,8 +39,9 @@ class SocialCommand extends BaseCommand
     /**
      * Execute the command.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -50,5 +51,4 @@ class SocialCommand extends BaseCommand
         $output->writeln('<info>'.$llum.' package '.$this->getDevOption()." $package".'</info>');
         passthru($llum.' package '.$this->getDevOption().' '.$package);
     }
-
 }
