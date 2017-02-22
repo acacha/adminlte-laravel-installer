@@ -2,7 +2,6 @@
 
 namespace Acacha\AdminLTETemplateLaravel\Console;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
@@ -10,21 +9,15 @@ use Symfony\Component\Process\Process;
 /**
  * Class InstallCommand.
  */
-class InstallCommand extends Command
+class InstallCommand extends BaseCommand
 {
+
     /**
      * Avoids using llum to install package.
      *
      * @var bool
      */
     protected $noLlum = false;
-
-    /**
-     * Install development version.
-     *
-     * @var bool
-     */
-    protected $installDev = false;
 
     /**
      * Install using php artisan vendor:publish.
@@ -87,8 +80,9 @@ class InstallCommand extends Command
     /**
      * Execute the command.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
+     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -103,19 +97,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * Get llum package name.
-     */
-    private function getPackageName()
-    {
-        if (!$this->askBeforeOverwrite) {
-            return $this->useVendorPublish ? $package = 'AdminLTEVendorPublish' : $package = 'AdminLTE';
-        }
-
-        return $this->useVendorPublish ? $package = 'AdminLTEVendorPublishDontForce' : $package = 'AdminLTEDontForce';
-    }
-
-    /**
-     * Execute command wiht option --no-llum.
+     * Execute command with option --no-llum.
      *
      * @param OutputInterface $output
      */
@@ -153,76 +135,8 @@ class InstallCommand extends Command
     }
 
     /**
-     * Get the llum command for the environment.
+     * Gets dev suffix.
      *
-     * @return string
-     */
-    private function findLlum()
-    {
-        $HOME = $this->getUserHomePath();
-        if (is_executable($this->getRealPath("$HOME/.composer/vendor/bin/llum"))) {
-            return "$HOME/.composer/vendor/bin/llum";
-        }
-        if (is_executable($this->getRealPath("$HOME/.config/composer/vendor/bin/llum"))) {
-            return "$HOME/.config/composer/vendor/bin/llum";
-        }
-
-        return 'llum';
-    }
-
-    /**
-     * Get the real path of a link or regular path if file is not a link.
-     *
-     * @param $file
-     *
-     * @return string
-     */
-    private function getRealPath($file)
-    {
-        if (is_link($file)) {
-            return realpath($file);
-        }
-
-        return $file;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUserHomePath()
-    {
-        if (isset($_SERVER['HOME'])) {
-            return $_SERVER['HOME'];
-        }
-
-        if (PHP_OS == 'WINNT') {
-            return getenv('USERPROFILE');
-        } else {
-            return getenv('HOME');
-        }
-    }
-
-    /*
-     * Gets dev option
-     *
-     * @return string
-     */
-
-    /**
-     * @return string
-     */
-    private function getDevOption()
-    {
-        return $this->installDev ? '--dev' : '';
-    }
-
-    /*
-     * Gets dev suffix
-     *
-     * @return string
-     */
-
-    /**
      * @return string
      */
     private function getDevSuffix()

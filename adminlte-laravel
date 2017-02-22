@@ -23,5 +23,6 @@ $app->getDefinition()->addOptions([
         'Ask before overwrite files during installation')]);
 
 $app->add(new Acacha\AdminLTETemplateLaravel\Console\InstallCommand);
+$app->add(new Acacha\AdminLTETemplateLaravel\Console\SocialCommand);
 
 $app->run();

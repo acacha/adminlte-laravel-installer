@@ -6,7 +6,7 @@
 
 # adminlte-laravel-installer
 
-Installer for https://github.com/acacha/adminlte-laravel
+Installer for project [acacha/adminlte-laravel](https://github.com/acacha/adminlte-laravel)
 
 # Requirements
 
@@ -62,5 +62,14 @@ The installer use a custom artisan command (admilte-laravel:publish) to publish 
 admilte-laravel --use-vendor-publish install
 ```
 
+# Add OAuth Social Login/Register with Laravel Socialite
 
+Execute:
 
+```bash
+admilte-laravel social
+```
+
+And follow the wizard instructions to configure Login/Register using Social Networks.
+
+More info at package [acacha/laravel-social](https://github.com/laravel/social)
