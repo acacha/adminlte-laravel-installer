@@ -91,7 +91,7 @@ class InstallCommand extends BaseCommand
         } else {
             $llum = $this->findLlum();
             $package = $this->getPackageName();
-            $output->writeln('<info>'.$llum.' package '.$this->getDevOption()." $package".'</info>');
+            $output->writeln('<info>'.$llum.' package '.$this->getDevOption()."$package".'</info>');
             passthru($llum.' package '.$this->getDevOption().' '.$package);
         }
     }
