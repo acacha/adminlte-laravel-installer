@@ -3,6 +3,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/acacha/adminlte-laravel-installer/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/acacha/adminlte-laravel-installer/?branch=master)
 [![StyleCI](https://styleci.io/repos/48875160/shield?branch=master)](https://styleci.io/repos/48875160)
 [![Build Status](https://travis-ci.org/acacha/adminlte-laravel-installer.svg?branch=master)](https://travis-ci.org/acacha/adminlte-laravel-installer)
+[![Dependency Status Composer](https://www.versioneye.com/user/projects/58483fc98c5dae004be97d36/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58483fc98c5dae004be97d36)
 
 # adminlte-laravel-installer
 
