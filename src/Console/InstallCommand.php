@@ -89,7 +89,7 @@ class InstallCommand extends BaseCommand
         if ($this->isNoLlumActive()) {
             $this->executeWithoutLlum($output);
         } else {
-            $llum = $this->findLlum();
+            $llum = str_replace(' ', '\ ', $this->findLlum());
             $package = $this->getPackageName();
             $output->writeln('<info>'.$llum.' package '.$this->getDevOption()."$package".'</info>');
             passthru($llum.' package '.$this->getDevOption().' '.$package);
