@@ -23,7 +23,7 @@
     },
     "require": {
         "laravel/installer": "^2.0",
-        "acacha/llum": "~1.0"
+        "acacha/llum": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0"
