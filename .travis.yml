@@ -7,6 +7,7 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
+  - composer global require "laravel/installer"
   - composer global require "acacha/llum=~1.0"
   - ./sandbox_setup.sh
 
