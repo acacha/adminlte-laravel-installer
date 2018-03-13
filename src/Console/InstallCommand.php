@@ -60,8 +60,8 @@ class InstallCommand extends Command
         $composer = $this->findComposer();
 
         $commands = [
-            $composer.' require '. $this->getPackageName().$this->getDevSuffix($input),
-            $composer.' require --dev laravel/dusk'
+            $composer.' require '.$this->getPackageName().$this->getDevSuffix($input),
+            $composer.' require --dev laravel/dusk',
         ];
 
         if ($input->getOption('no-ansi')) {
@@ -73,7 +73,7 @@ class InstallCommand extends Command
         $force = $input->getOption('dontforce') ? '' : ' --force';
         $commands = array_merge($commands, [
             'php artisan dusk:install',
-            'php artisan adminlte:publish' . $force
+            'php artisan adminlte:publish'.$force,
         ]);
 
         $process = new Process(
@@ -88,7 +88,7 @@ class InstallCommand extends Command
             $process->setTty(true);
         }
 
-        $output->writeln('<info>Running '. $runningCommand.'</info>');
+        $output->writeln('<info>Running '.$runningCommand.'</info>');
         $process->run(function ($type, $line) use ($output) {
             $output->write($line);
         });
