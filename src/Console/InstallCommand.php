@@ -40,16 +40,10 @@ class InstallCommand extends Command
                 'Installs the latest "development" release'
             )
             ->addOption(
-                'force',
-                '-f',
+                'dontforce',
+                '-F',
                 InputOption::VALUE_NONE,
-                'Forces install even if the directory already exists'
-            )
-            ->addOption(
-                'use-vendor-publish',
-                '-p',
-                InputOption::VALUE_NONE,
-                'Installs using php artisan vendor:publish --tag=adminlte --force . By default php artisan adminlte-laravel:publish is used'
+                'Do not force overwrite of files during publish'
             );
     }
 
@@ -63,13 +57,27 @@ class InstallCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $noansi = '';
+        $composer = $this->findComposer();
+
+        $commands = [
+            $composer.' require '. $this->getPackageName().$this->getDevSuffix($input),
+            $composer.' require --dev laravel/dusk'
+        ];
+
         if ($input->getOption('no-ansi')) {
-            $noansi = ' --no-ansi';
+            $commands = array_map(function ($value) {
+                return $value.' --no-ansi';
+            }, $commands);
         }
 
+        $force = $input->getOption('dontforce') ? '' : ' --force';
+        $commands = array_merge($commands, [
+            'php artisan dusk:install',
+            'php artisan adminlte:publish' . $force
+        ]);
+
         $process = new Process(
-            $this->findComposer().' require '.$package = $this->getPackageName().$this->getDevSuffix($input).$noansi,
+            $runningCommand = implode(' && ', $commands),
             null,
             null,
             null,
@@ -80,14 +88,10 @@ class InstallCommand extends Command
             $process->setTty(true);
         }
 
-        $output->writeln(
-            '<info>Running composer require '.$package.'</info>'
-        );
+        $output->writeln('<info>Running '. $runningCommand.'</info>');
         $process->run(function ($type, $line) use ($output) {
             $output->write($line);
         });
-
-        $input->getOption('use-vendor-publish') ? $this->publishWithVendor($output) : $this->publish($output);
     }
 
     /**
@@ -100,27 +104,5 @@ class InstallCommand extends Command
     private function getDevSuffix(InputInterface $input)
     {
         return $input->getOption('dev') ? ':dev-master' : '';
-    }
-
-    /**
-     * Manually publishes files to project.
-     *
-     * @param OutputInterface $output
-     */
-    protected function publish(OutputInterface $output)
-    {
-        $output->writeln('<info>php artisan adminlte:publish</info>');
-        passthru('php artisan adminlte-laravel:publish');
-    }
-
-    /**
-     * Publishes files with artisan publish command.
-     *
-     * @param OutputInterface $output
-     */
-    protected function publishWithVendor(OutputInterface $output)
-    {
-        $output->writeln('<info>php artisan vendor:publish --tag=adminlte --force</info>');
-        passthru('php artisan vendor:publish --tag=adminlte --force');
     }
 }

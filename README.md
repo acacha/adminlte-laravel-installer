@@ -25,13 +25,12 @@ adminlte-laravel install
 
 For more info see https://github.com/acacha/adminlte-laravel
 
-# vendor:publish vs custom publish
+You could use dontforce (-F) option to ask for overwritten files during publish:
 
-The installer use a custom artisan command (admilte-laravel:publish) to publish files. You can use old behaviour forcing use of laravel vendor:publish (this command will not be supported in future)
-
-```bash
-admilte-laravel --use-vendor-publish install
 ```
+adminlte-laravel install -F
+```
+
 
 # Add OAuth Social Login/Register with Laravel Socialite
 
