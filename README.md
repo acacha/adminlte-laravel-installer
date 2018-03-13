@@ -8,51 +8,22 @@
 
 Installer for project [acacha/adminlte-laravel](https://github.com/acacha/adminlte-laravel)
 
-# Requirements
-
-This packages requires [acacha/llum](https://github.com/acacha/llum) package starting from version 2.0
-
 # Install notes
 
 ```bash
-composer global require "acacha/adminlte-laravel-installer=~3.0"
+composer global require "acacha/adminlte-laravel-installer"
 ```
 
 # Use
 
+Use this commands inside a fresh new Laravel project:
+
 ```bash
-admilte-laravel install
+laravel new project && cd project
+adminlte-laravel install
 ```
 
 For more info see https://github.com/acacha/adminlte-laravel
-
-# Installer without llum
-
-Use:
-
-```bash
-composer global require "acacha/adminlte-laravel-installer=~1.0"
-```
-
-Or use option --no-llum using installer:
-
-```bash
-admilte-laravel --no--llum install
-```
-
-#Avoid force overwrite during installation
-
-Use:
-
-```bash
-admilte-laravel -F install
-```
-
-or:
-
-```bash
-admilte-laravel --dontforce install
-```
 
 # vendor:publish vs custom publish
 
@@ -67,7 +38,7 @@ admilte-laravel --use-vendor-publish install
 Execute:
 
 ```bash
-admilte-laravel social
+adminlte-laravel social
 ```
 
 And follow the wizard instructions to configure Login/Register using Social Networks.

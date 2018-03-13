@@ -2,27 +2,26 @@
 
 namespace Acacha\AdminLTETemplateLaravel\Console;
 
+use Acacha\AdminLTETemplateLaravel\Console\Traits\UseComposer;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Process\Process;
 
 /**
  * Class SocialCommand.
  */
-class SocialCommand extends BaseCommand
+class SocialCommand extends Command
 {
-    /**
-     * Initialize command.
-     *
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     */
-    protected function initialize(InputInterface $input, OutputInterface $output)
-    {
-        parent::initialize($input, $output);
+    use UseComposer;
 
-        if ($input->hasOption('dev')) {
-            $this->installDev = $input->getOption('dev');
-        }
+    /**
+     * Get package name to install.
+     */
+    protected function getPackageName()
+    {
+        return 'acacha/laravel-social';
     }
 
     /**
@@ -33,7 +32,13 @@ class SocialCommand extends BaseCommand
         $this->ignoreValidationErrors();
 
         $this->setName('social')
-            ->setDescription('Add OAuth social login/register support using Socialiate into the current project.');
+            ->setDescription('Add Acacha Laravel Social Package: OAuth Social Login/Register support using Socialite into the current project.')
+            ->addOption(
+                'dev',
+                '-d',
+                InputOption::VALUE_NONE,
+                'Installs the latest "development" release'
+            );
     }
 
     /**
@@ -46,17 +51,41 @@ class SocialCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $llum = $this->findLlum();
-        $package = $this->getPackageName();
-        $output->writeln('<info>'.$llum.' package '.$this->getDevOption()."$package".'</info>');
-        passthru($llum.' package '.$this->getDevOption().' '.$package);
+        $process = new Process(
+            $this->findComposer() .' require ' . $package = $this->getPackageName() . $this->getDevSuffix($input),
+            null,
+            null,
+            null,
+            null
+        );
+
+        $output->writeln('<info>Running composer require ' . $package .'</info>');
+        $process->run(function ($type, $line) use ($output) {
+            $output->write($line);
+        });
+
+        $this->runMakeSocial($output);
     }
 
     /**
-     * Get llum package name.
+     * Gets dev suffix.
+     *
+     * @param InputInterface  $input
+     * @return string
      */
-    protected function getPackageName()
+    private function getDevSuffix(InputInterface $input)
     {
-        return 'laravel-social';
+        return $input->getOption('dev') ? ':dev-master' : '';
+    }
+
+    /**
+     * Run make social.
+     *
+     * @param OutputInterface $output
+     */
+    protected function runMakeSocial(OutputInterface $output)
+    {
+        $output->writeln('<info>php artisan make:social</info>');
+        passthru('php artisan make:social');
     }
 }

@@ -7,7 +7,6 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use PHPUnit\Framework\TestCase;
 
-
 /**
  * Class InstallCommandTest.
  */
@@ -32,19 +31,22 @@ class InstallCommandTest extends TestCase
         echo 'Executing command 2...';
 
         $this->assertTrue(
-            $this->fileHasContent('/composer.json', 'acacha/admin-lte-template-laravel'));
+            $this->fileHasContent('/composer.json', 'acacha/admin-lte-template-laravel')
+        );
 
         $this->assertTrue(
             $this->fileHasContent(
                 '/config/app.php',
                 'Acacha\AdminLTETemplateLaravel\Providers\AdminLTETemplateServiceProvider::class'
-            ));
+            )
+        );
 
         $this->assertTrue(
             $this->fileHasContent(
                 '/config/app.php',
                 'Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class'
-            ));
+            )
+        );
 
         $this->assertFileExists('app/Http/Controllers/HomeController.php');
 
