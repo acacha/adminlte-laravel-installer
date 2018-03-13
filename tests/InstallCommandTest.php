@@ -3,9 +3,9 @@
 namespace Acacha\AdminLTETemplateLaravel\Tests;
 
 use Acacha\AdminLTETemplateLaravel\Console\InstallCommand;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class InstallCommandTest.
