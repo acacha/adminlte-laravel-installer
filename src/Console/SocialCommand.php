@@ -3,10 +3,10 @@
 namespace Acacha\AdminLTETemplateLaravel\Console;
 
 use Acacha\AdminLTETemplateLaravel\Console\Traits\UseComposer;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 /**
@@ -52,14 +52,14 @@ class SocialCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $process = new Process(
-            $this->findComposer() .' require ' . $package = $this->getPackageName() . $this->getDevSuffix($input),
+            $this->findComposer().' require '.$package = $this->getPackageName().$this->getDevSuffix($input),
             null,
             null,
             null,
             null
         );
 
-        $output->writeln('<info>Running composer require ' . $package .'</info>');
+        $output->writeln('<info>Running composer require '.$package.'</info>');
         $process->run(function ($type, $line) use ($output) {
             $output->write($line);
         });
@@ -70,7 +70,8 @@ class SocialCommand extends Command
     /**
      * Gets dev suffix.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
+     *
      * @return string
      */
     private function getDevSuffix(InputInterface $input)

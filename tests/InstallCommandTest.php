@@ -41,13 +41,12 @@ class InstallCommandTest extends TestCase
 
         $commandTester->execute([
             'command' => $command->getName(),
-            '--dev' => true
+            '--dev'   => true,
         ]);
 
         $output = $commandTester->getDisplay();
         $this->assertContains('Running composer require acacha/admin-lte-template-laravel:dev-master', $output);
         $this->assertContains('php artisan adminlte:publish', $output);
-
     }
 
     /** @test */
@@ -60,13 +59,12 @@ class InstallCommandTest extends TestCase
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            'command' => $command->getName(),
-            '--no-ansi' => true
+            'command'   => $command->getName(),
+            '--no-ansi' => true,
         ]);
 
         $output = $commandTester->getDisplay();
         $this->assertContains('--no-ansi', $output);
-
     }
 
     /** @test */
@@ -79,13 +77,12 @@ class InstallCommandTest extends TestCase
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            'command' => $command->getName(),
-            '--use-vendor-publish' => true
+            'command'              => $command->getName(),
+            '--use-vendor-publish' => true,
         ]);
 
         $output = $commandTester->getDisplay();
         $this->assertContains('Running composer require acacha/admin-lte-template-laravel', $output);
         $this->assertContains('php artisan vendor:publish --tag=adminlte --force', $output);
-
     }
 }
