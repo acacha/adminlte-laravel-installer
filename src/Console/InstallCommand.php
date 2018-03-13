@@ -63,13 +63,22 @@ class InstallCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $noansi = '';
+        if ($input->getOption('no-ansi')) {
+            $noansi = ' --no-ansi';
+        }
+
         $process = new Process(
-            $this->findComposer() . ' require ' . $package = $this->getPackageName() . $this->getDevSuffix($input),
+            $this->findComposer() . ' require ' . $package = $this->getPackageName() . $this->getDevSuffix($input) . $noansi,
             null,
             null,
             null,
             null
         );
+
+        if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
+            $process->setTty(true);
+        }
 
         $output->writeln(
             '<info>Running composer require ' . $package .'</info>'

@@ -5,8 +5,4 @@ composer global require "acacha/llum"
 composer global require "acacha/adminlte-laravel-installer"
 ./sandbox_setup.sh
 cd sandbox
-./vendor/phpunit/phpunit --configuration ../phpunit.xml ../tests/InstallCommandTest.php
-
-
-
-  -
+./vendor/bin/phpunit --configuration ../phpunit.xml ../tests/InstallCommandTest.php
