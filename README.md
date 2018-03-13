@@ -43,4 +43,4 @@ adminlte-laravel social
 
 And follow the wizard instructions to configure Login/Register using Social Networks.
 
-More info at package [acacha/laravel-social](https://github.com/laravel/social)
+More info at package [acacha/laravel-social](https://github.com/acacha/laravel-social)
