@@ -3,11 +3,11 @@
 namespace Acacha\AdminLTETemplateLaravel\Console;
 
 use Acacha\AdminLTETemplateLaravel\Console\Traits\UseComposer;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Console\Command\Command;
 
 /**
  * Class InstallCommand.
@@ -69,7 +69,7 @@ class InstallCommand extends Command
         }
 
         $process = new Process(
-            $this->findComposer() . ' require ' . $package = $this->getPackageName() . $this->getDevSuffix($input) . $noansi,
+            $this->findComposer().' require '.$package = $this->getPackageName().$this->getDevSuffix($input).$noansi,
             null,
             null,
             null,
@@ -81,7 +81,7 @@ class InstallCommand extends Command
         }
 
         $output->writeln(
-            '<info>Running composer require ' . $package .'</info>'
+            '<info>Running composer require '.$package.'</info>'
         );
         $process->run(function ($type, $line) use ($output) {
             $output->write($line);
@@ -93,7 +93,8 @@ class InstallCommand extends Command
     /**
      * Gets dev suffix.
      *
-     * @param InputInterface  $input
+     * @param InputInterface $input
+     *
      * @return string
      */
     private function getDevSuffix(InputInterface $input)

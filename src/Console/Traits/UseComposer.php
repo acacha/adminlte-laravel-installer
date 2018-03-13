@@ -4,8 +4,6 @@ namespace Acacha\AdminLTETemplateLaravel\Console\Traits;
 
 /**
  * Trait UseComposer.
- *
- * @package Acacha\AdminLTETemplateLaravel\Console\Traits
  */
 trait UseComposer
 {
